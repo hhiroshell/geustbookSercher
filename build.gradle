@@ -1,0 +1,31 @@
+plugins {
+    id 'java'
+}
+
+group 'jp.gr.java_conf.hhiroshell'
+version '0.1'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+    compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.25'
+    compile group: 'com.google.guava', name: 'guava', version: '20.0'
+    compile group: 'io.vitess', name: 'vitess-client', version: '2.2.0'
+    compile group: 'io.vitess', name: 'vitess-grpc-client', version: '2.2.0'
+    compile group: 'io.vitess', name: 'vitess-jdbc', version: '2.2.0'
+    compile group: 'joda-time', name: 'joda-time', version: '2.10'
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": "jp.gr.java_conf.hhiroshell.vitess.Main"
+    }
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
